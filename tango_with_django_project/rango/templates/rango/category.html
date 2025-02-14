@@ -2,6 +2,10 @@
 {% load static %}
 
 {% block title_block %}
+    {% if category %}{{ category.name }}{% else %}Unknown Category{% endif %}
+{% endblock %}
+
+{% block title_block %}
     {% if category %}
         {{ category.name }}
     {% else %}
@@ -12,15 +16,22 @@
 {% block body_block %}
     {% if category %}
         <h1>{{ category.name }}</h1>
-
+        <h2>Pages</h2>
         {% if pages %}
-            <ul>
-                {% for page in pages %}
-                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
-                {% endfor %}
-            </ul>
+        <ul>
+            {% for page in pages %}
+                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+            {% empty %}
+                <li><strong>No pages in this category.</strong></li>
+            {% endfor %}
+        </ul>
         {% else %}
-            <strong>No pages currently in category.</strong>
+            <h1>Unknown Category</h1>
+            <p>The category you are looking for does not exist.</p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'add_page' category.slug %}">Add a New Page</a>
         {% endif %}
 
         <a href="{% url 'rango:add_page' category.slug %}">Add Page</a> <br />

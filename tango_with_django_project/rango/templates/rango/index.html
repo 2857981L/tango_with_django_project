@@ -25,3 +25,10 @@
         </ul>
     </div>
 {% endblock %}
+
+{% if user.is_authenticated %}
+    <p>Howdy, {{ user.username }}!</p>
+{% else %}
+    <p>Hey there partner!</p>
+{% endif %}
+
