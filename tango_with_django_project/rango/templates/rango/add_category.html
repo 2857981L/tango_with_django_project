@@ -4,7 +4,7 @@
 
 {% block body_block %}
     <h1>Add a New Category</h1>
-    <form method="post">
+    <form method="post" action="{% url 'rango:add_category' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Add Category">
