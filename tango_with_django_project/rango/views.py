@@ -31,6 +31,8 @@ def about(request):
 
 def show_category(request, category_name_slug):
     context_dict = {}
+    category = get_object_or_404(Category, slug=category_name_slug)
+    pages = Page.objects.filter(category=category)
 
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -43,7 +45,7 @@ def show_category(request, category_name_slug):
         context_dict['category'] = None
         context_dict['pages'] = None
 
-    return render(request, 'rango/category.html', context_dict)
+    return render(request, 'rango/category.html', {'category': category, 'pages': pages})
 
 def add_category(request):
     form = CategoryForm()
@@ -57,11 +59,12 @@ def add_category(request):
             cat = form.save(commit=True)
             # Now that the category is saved, we could confirm this.
             # For now, just redirect the user back to the index view.
-            return redirect('/rango/')
+            return redirect(reverse('index'))
         else:
             # The supplied form contained errors -
             # just print them to the terminal.
             print(form.errors)
+            form = CategoryForm()
 
     # Will handle the bad form, new form, or no form supplied cases.
     # Render the form with error messages (if any).

@@ -1,0 +1,27 @@
+{% extends 'rango/base.html' %}
+
+{% block title_block %}Homepage{% endblock %}
+
+{% block body_block %}
+    <h1>Rango says...</h1>
+
+    <h2>Most Liked Categories</h2>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'show_category' category.name %}">{{ category.name }}</a></li>
+        {% empty %}
+            <li><strong>No categories available.</strong></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Most Viewed Pages</h2>
+    <div>
+        <ul>
+            {% for page in pages %}
+                <li><a href="{{ page.url }}">{{ page.title }}</a> - {{ page.views }} views</li>
+            {% empty %}
+                <li><strong>There are no pages present.</strong></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
