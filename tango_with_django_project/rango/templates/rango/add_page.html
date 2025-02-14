@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Page</title>
+</head>
+
+{% extends 'rango/base.html' %}
+{% block title_block %}
+    Add a Page
+{% endblock %}
+
+{% block body_block %}
+    <h1>Add a Page to {{ category.name }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="submit" value="Add Page" />
+    </form>
+
+    <a href="{% url 'rango:show_category' category.slug %}">Back to {{ category.name }}</a>
+{% endblock %}
+
+<body>
+    <h1>Add a New Page to {{ category.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Page">
+    </form>
+    <a href="{% url 'show_category' category.slug %}">Back to Category</a>
+</body>
+</html>
