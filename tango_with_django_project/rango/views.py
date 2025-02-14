@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from rango.models import Category, Page
 from django.http import HttpResponse
 from rango.forms import CategoryForm, PageForm
-from django.shortcuts import redirect
-from rango.forms import PageForm
 from django.urls import reverse
 
 def index(request):
@@ -28,6 +26,11 @@ def index(request):
 def about(request):
     return HttpResponse("Rango says here is the about page. <br><a href='/rango/'>Back to Index</a>")
     return render(request, 'rango/about.html')
+    
+    print("Request Method:", request.method)
+    print("User:", request.user)
+
+    return render(request, 'rango/about.html', {})
 
 def show_category(request, category_name_slug):
     context_dict = {}
