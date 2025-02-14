@@ -1,0 +1,23 @@
+{% extends 'rango/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    {{ category.name }}
+{% endblock %}
+
+{% block body_block %}
+    <h1>{{ category.name }}</h1>
+
+    {% if category %}
+        <p>Here are the pages in this category:</p>
+        <ul>
+            {% for page in pages %}
+                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>The category does not exist.</p>
+    {% endif %}
+{% endblock %}
+
+<a href="{% url 'index' %}">Back to Index</a>
